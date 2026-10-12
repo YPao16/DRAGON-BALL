@@ -1,0 +1,325 @@
+/* Colores principales del juego */
+:root {
+  --pink-dark: #a83268;
+  --pink-medium: #c94f83;
+  --pink-light: #e77da8;
+  --pink-pale: #fff1f6;
+}
+
+/* Fondo y color de texto de toda la página */
+body {
+  background-color: #f9dfeb !important;
+  color: #492637;
+  min-height: 100vh;
+}
+
+/* Título y campos de los jugadores */
+#game-container > .row:first-child h1 {
+  color: var(--pink-dark) !important;
+}
+
+#campo_p1 .form-floating,
+#campo_p2 .form-floating {
+  border-color: var(--pink-medium) !important;
+}
+
+#campo_p1 label,
+#campo_p2 label {
+  color: var(--pink-dark) !important;
+}
+
+/* Botones para confirmar la selección y comenzar la pelea */
+#btn_player1,
+#btn_player2,
+#btn-start-battle {
+  border-color: var(--pink-dark);
+  background-color: var(--pink-dark);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Colores distintos para cada botón principal */
+#btn_player2 {
+  border-color: var(--pink-medium);
+  background-color: var(--pink-medium);
+}
+
+#btn-start-battle {
+  border-color: var(--pink-light);
+  background-color: var(--pink-light);
+  color: #492637;
+}
+
+/* Efecto al pasar el cursor por los botones */
+#btn_player1:hover,
+#btn_player2:hover,
+#btn-start-battle:hover {
+  filter: brightness(0.92);
+}
+
+/* Colores de los botones de combate */
+.battle-actions .btn {
+  border-color: var(--pink-medium);
+  background-color: var(--pink-medium);
+  color: #fff;
+}
+
+/* El ataque fuerte resalta más que el básico */
+.battle-actions #p1-especial,
+.battle-actions #p2-especial {
+  border-color: var(--pink-dark);
+  background-color: var(--pink-dark);
+}
+
+/* Color del ataque básico */
+.battle-actions #p1-basico,
+.battle-actions #p2-basico {
+  border-color: var(--pink-light);
+  background-color: var(--pink-light);
+  color: #492637;
+}
+
+/* Color de las semillas */
+.battle-actions #p1-semilla,
+.battle-actions #p2-semilla {
+  border-color: #d66c96;
+  background-color: #d66c96;
+  color: #fff;
+}
+
+/* Efecto al pasar el cursor por una acción disponible */
+.battle-actions .btn:not(:disabled):hover {
+  filter: brightness(0.92);
+}
+
+/* Muestra u oculta las partes del juego según la pantalla actual */
+#game-container[data-stage="selection"] .battle-only,
+#game-container[data-stage="selection"] .matchup-screen,
+#game-container[data-stage="matchup"] .selection-only,
+#game-container[data-stage="matchup"] #fighter-panels,
+#game-container[data-stage="battle"] .selection-only,
+#game-container[data-stage="battle"] .matchup-screen {
+  display: none !important;
+}
+
+#game-container[data-stage="matchup"] .matchup-screen {
+  display: block !important;
+}
+
+#game-container[data-stage="battle"] .battle-only {
+  display: block !important;
+}
+
+#game-container[data-stage="battle"] .battle-actions {
+  display: grid !important;
+}
+
+/* Apariencia de la pantalla donde se presentan los combatientes */
+.matchup-character {
+  height: min(48vh, 390px);
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px rgba(118, 67, 160, 0.42));
+}
+
+/* Estilo del VS entre los personajes */
+.matchup-versus {
+  color: #dc3545;
+  font-size: clamp(2rem, 7vw, 5rem);
+  font-weight: 900;
+  text-shadow: 2px 3px 0 rgba(52, 35, 66, 0.16);
+}
+
+.matchup-dialogue {
+  min-height: 3em;
+  margin-top: 0.75rem;
+  color: var(--pink-dark);
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.matchup-character {
+  animation: matchupCharacterIn 0.8s ease-out both;
+}
+
+#matchup-img-p2 {
+  animation-delay: 0.2s;
+}
+
+@keyframes matchupCharacterIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Color de los campos donde se escriben los nombres */
+.form-floating > .form-control {
+  background-color: var(--pink-pale) !important;
+  color: #492637 !important;
+}
+
+/* Resalta el campo mientras se escribe */
+.form-floating > .form-control:focus {
+  background-color: #ffffff !important;
+  color: #492637 !important;
+}
+
+/* Las imágenes parecen botones y se agrandan al pasar el cursor */
+#py1 .row img, #py2 .row img {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#py1 .row img:hover, #py2 .row img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 14px rgba(255, 193, 7, 0.85);
+}
+
+/* Imagen del personaje elegido */
+.character-full-preview {
+  max-height: 250px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.25));
+  animation: previewFadeIn 0.3s ease-in-out;
+}
+
+/* Entrada suave de la imagen elegida */
+@keyframes previewFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Acomoda las acciones en cuatro columnas */
+.battle-actions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+/* Mantiene los botones de combate cómodos de pulsar */
+.battle-actions .btn {
+  min-height: 48px;
+  min-width: 0;
+  padding-inline: 0.35rem;
+  font-weight: 600;
+  font-size: clamp(0.62rem, 1.5vw, 0.9rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Borde visible al llegar a un botón con el teclado */
+.battle-actions .btn:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+
+/* Reserva espacio para los mensajes del turno */
+.battle-status { min-height: 2.5em; }
+
+/* Fondo que cubre la pantalla durante un ataque */
+.attack-animation {
+  position: fixed;
+  z-index: 1080;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(92, 34, 62, 0.72);
+  backdrop-filter: blur(5px);
+}
+
+/* Oculta la animación cuando no se está usando */
+.attack-animation.d-none {
+  display: none;
+}
+
+.loading-screen {
+  position: fixed;
+  z-index: 1090;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(73, 38, 55, 0.88);
+  color: #fff;
+  text-align: center;
+}
+
+.loading-screen.d-none {
+  display: none;
+}
+
+.loading-card {
+  width: min(92vw, 420px);
+  padding: 2rem;
+  border: 2px solid var(--pink-light);
+  border-radius: 1.25rem;
+  background: #fff1f6;
+  color: var(--pink-dark);
+  box-shadow: 0 0 36px rgba(231, 125, 168, 0.45);
+}
+
+/* Tarjeta con el nombre y los detalles del ataque */
+.attack-animation-card {
+  width: min(92vw, 520px);
+  padding: 1.5rem;
+  border: 2px solid var(--pink-medium);
+  border-radius: 1.25rem;
+  background: linear-gradient(145deg, #fff8fb, #f7cadd);
+  color: #492637;
+  text-align: center;
+  box-shadow: 0 0 36px rgba(201, 79, 131, 0.45);
+  animation: attackCardIn 0.35s ease-out both;
+}
+
+/* Imagen que acompaña al ataque */
+.attack-animation-image {
+  width: min(100%, 340px);
+  height: min(48vh, 340px);
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px rgba(118, 67, 160, 0.5));
+  animation: attackImageIn 0.7s ease-out both;
+}
+
+/* Pequeño pulso de la imagen durante la animación */
+.attack-animation.is-visible .attack-animation-image {
+  animation: attackImageIn 0.7s ease-out both, attackImagePulse 0.8s 0.7s ease-in-out 2;
+}
+
+/* Animación de entrada de la tarjeta */
+@keyframes attackCardIn {
+  from { opacity: 0; transform: scale(0.82); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Animación de entrada de la imagen */
+@keyframes attackImageIn {
+  from { opacity: 0; transform: translateY(32px) scale(0.72); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Efecto de pulso */
+@keyframes attackImagePulse {
+  50% { transform: scale(1.06); }
+}
+
+/* Reduce el movimiento si el usuario lo prefiere */
+@media (prefers-reduced-motion: reduce) {
+  .attack-animation-card,
+  .attack-animation-image,
+  .attack-animation.is-visible .attack-animation-image {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+  }
+
+  .matchup-character {
+    animation-duration: 0.01ms;
+  }
+}

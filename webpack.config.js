@@ -1,22 +1,30 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development', // Modo desarrollo
-  entry: './src/index.js', // Archivo de entrada
+  // Prepara el juego para trabajar en la computadora.
+  mode: 'development',
+  // Aquí empieza el código principal.
+  entry: './src/index.js',
   output: {
+    // Guarda el resultado dentro de dist.
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js', // Archivo de salida
+    // Este es el archivo que carga la página.
+    filename: 'bundle.js',
   },
   devServer: {
-    static: './dist', // Carpeta donde lanzara los archivos
-    port: 3000, // Puerto del servidor de desarrollo
-    open: true, // Abre el navegador automáticamente
-    hot: true, // Habilita recarga en vivo
+    // Muestra los archivos de la carpeta dist.
+    static: './dist',
+    // Dirección local del juego.
+    port: 3000,
+    // Abre el navegador y actualiza al guardar cambios.
+    open: true,
+    hot: true,
   },
   module: {
     rules: [
       {
-        test: /\.js$/, // Archivos JS
+        // Prepara los archivos JavaScript.
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -26,15 +34,18 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/, // Procesar archivos SCSS de Bootstrap
+        // Permite usar estilos SCSS.
+        test: /\.scss$/,
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
-        test: /\.css$/, // Procesar archivos CSS
+        // Carga los estilos CSS.
+        test: /\.css$/,
         use: ['style-loader', 'css-loader']
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf|svg)$/, // Carga fuentes de FontAwesome
+        // Incluye iconos y fuentes usados por la página.
+        test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
         type: 'asset/resource',
       }
     ]

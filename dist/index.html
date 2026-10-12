@@ -1,18 +1,246 @@
+<!-- Le avisa al navegador que esta página está hecha en HTML5 -->
 <!DOCTYPE html>
-<html lang="en">
+
+<!-- Aquí empieza la página; el contenido está en español -->
+<html lang="es" data-bs-theme="light">
 <head>
+    <!-- Permite mostrar bien las letras y los acentos -->
     <meta charset="UTF-8">
+
+    <!-- Hace que la página se vea bien también en celulares -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./bundle.js"></script>
+
+    <!-- Nombre que aparece en la pestaña del navegador -->
     <title>DRAGON BALL GAME</title>
 </head>
+
+<!-- Aquí va todo lo que se ve en el juego -->
 <body>
-    <div class="container mt-4">
+
+    <!-- Contenedor principal del juego -->
+    <div id="game-container" class="container mt-4" data-stage="selection">
+
+        <!-- Título del juego -->
         <div class="row justify-content-center">
             <div class="col text-center">
-                <h1 class="text-danger">DRAGON BALL GAME</h1>
+                <h1 class="text-danger display-3">
+                    <i class="fa-solid fa-dragon"></i> DRAGON BALL GAME <i class="fa-solid fa-dragon"></i>
+                </h1>
             </div>
         </div>
-    </div>    
+
+        <!-- Espacios para escribir los nombres de los jugadores -->
+        <div id="player-fields" class="row justify-content-around mt-4 selection-only">
+
+            <!-- Nombre del jugador 1 -->
+            <div id="campo_p1" class="col-md-5">
+                <div class="form-floating border border-danger rounded mb-3">
+                    <input type="text" id="player1" class="form-control" placeholder="Jugador 1">
+                    <label class="text-danger" for="player1"><i class="fa-solid fa-user me-2"></i>Jugador 1</label>
+                </div>
+            </div>
+
+            <!-- Nombre del jugador 2 -->
+            <div id="campo_p2" class="col-md-5">
+                <div class="form-floating border border-primary rounded mb-3">
+                    <input type="text" id="player2" class="form-control" placeholder="Jugador 2">
+                    <label class="text-primary" for="player2"><i class="fa-solid fa-user me-2"></i>Jugador 2</label>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Personajes y datos de cada jugador -->
+        <div id="fighter-panels" class="row justify-content-around mt-3">
+
+            <!-- Panel del jugador 1 -->
+            <div id="py1" class="col-md-5 text-center">
+                <p class="text-danger">Seleccionar personaje</p>
+
+                <!-- Personajes que puede elegir el jugador 1 -->
+                <div class="row mt-4 character-options">
+                    <div class="col-3">
+                        <img class="img-fluid rounded-circle bg-danger border border-danger" src="./public/img/seleccion/sc01.webp" alt="Veguitto">
+                    </div>
+                    <div class="col-3">
+                        <img class="img-fluid rounded-circle bg-danger border border-danger" src="./public/img/seleccion/sc03.webp" alt="Trunks">
+                    </div>
+                    <div class="col-3">
+                        <img class="img-fluid rounded-circle bg-danger border border-danger" src="./public/img/seleccion/sc06.webp" alt="Gohan">
+                    </div>
+                    <div class="col-3">
+                        <img class="img-fluid rounded-circle bg-danger border border-danger" src="./public/img/seleccion/sc05.webp" alt="Goku">
+                    </div>
+                </div>
+
+                <!-- Aquí aparece el personaje que eligió -->
+                <div id="preview_p1" class="mt-3 d-none">
+                    <div class="d-flex flex-column align-items-center justify-content-center">
+                        <img id="img_preview_p1" src="" alt="Personaje Completo Jugador 1" class="img-fluid character-full-preview">
+                        <span id="name_preview_p1" class="text-warning fw-bold fs-5 mt-2"></span>
+                    </div>
+                </div>
+
+                <!-- Vida, ki y energía del jugador 1 -->
+                <div class="mt-3 battle-only">
+                    <!-- Vida -->
+                    <div class="text-start mb-2">
+                        <label class="form-label text-success fw-bold mb-1 small"><i class="fa-solid fa-heart me-1"></i>Vida</label>
+                        <div class="progress" style="height: 20px;">
+                            <div id="p1-vida" class="progress-bar bg-success fw-bold" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                        </div>
+                    </div>
+
+                    <!-- Ki -->
+                    <div class="text-start mb-2">
+                        <label class="form-label text-info fw-bold mb-1 small"><i class="fa-solid fa-bolt me-1"></i>Ki</label>
+                        <div class="progress" style="height: 20px;">
+                            <div id="p1-ki" class="progress-bar bg-info text-dark fw-bold" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                        </div>
+                    </div>
+
+                    <!-- Energía -->
+                    <div class="text-start mb-2">
+                        <label class="form-label text-warning fw-bold mb-1 small"><i class="fa-solid fa-fire me-1"></i>Energía</label>
+                        <div class="progress" style="height: 20px;">
+                            <div id="p1-energia" class="progress-bar bg-warning text-dark fw-bold" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acciones disponibles para el jugador 1 durante la pelea -->
+                <div class="battle-actions battle-only mt-3" role="group" aria-label="Acciones del jugador 1">
+                    <button type="button" id="p1-cargar" class="btn btn-outline-info" disabled><i class="fa-solid fa-bolt" aria-hidden="true"></i> Cargar ki</button>
+                    <button type="button" id="p1-especial" class="btn btn-outline-warning" disabled><i class="fa-solid fa-fire" aria-hidden="true"></i> Atk especial</button>
+                    <button type="button" id="p1-basico" class="btn btn-outline-danger" disabled><i class="fa-solid fa-hand-fist" aria-hidden="true"></i> Atk básico</button>
+                    <button type="button" id="p1-semilla" class="btn btn-outline-success" disabled><i class="fa-solid fa-seedling" aria-hidden="true"></i> Semilla (<span id="p1-semillas">2</span>)</button>
+                </div>
+
+                <!-- Mensaje que le indica al jugador qué está pasando -->
+                <p id="p1-estado" class="battle-status battle-only mt-2 small text-secondary" role="status" aria-live="polite">Elige tu personaje y pulsa Aceptar.</p>
+
+                <!-- Confirma al jugador 1 -->
+                <button id="btn_player1" type="button" class="btn btn-danger w-100 mt-4">Aceptar <i class="fa-solid fa-gamepad"></i></button>
+            </div>
+
+
+            <!-- Panel del jugador 2 -->
+            <div id="py2" class="col-md-5 text-center">
+                <p class="text-danger">Seleccionar personaje</p>
+
+                <!-- Personajes que puede elegir el jugador 2 -->
+                <div class="row mt-4 character-options">
+                    <div class="col-3">
+                        <img class="img-fluid rounded-circle bg-primary border border-primary" src="./public/img/seleccion/sc02.webp" alt="Veguetta">
+                    </div>
+                    <div class="col-3">
+                        <img class="img-fluid rounded-circle bg-primary border border-primary" src="./public/img/seleccion/sc08.webp" alt="Cell">
+                    </div>
+                    <div class="col-3">
+                        <img class="img-fluid rounded-circle bg-primary border border-primary" src="./public/img/seleccion/sc04.webp" alt="Pikoro">
+                    </div>
+                    <div class="col-3">
+                        <img class="img-fluid rounded-circle bg-primary border border-primary" src="./public/img/seleccion/sc07.webp" alt="Gogeta">
+                    </div>
+                </div>
+
+                <!-- Aquí aparece el personaje que eligió -->
+                <div id="preview_p2" class="mt-3 d-none">
+                    <div class="d-flex flex-column align-items-center justify-content-center">
+                        <img id="img_preview_p2" src="" alt="Personaje Completo Jugador 2" class="img-fluid character-full-preview">
+                        <span id="name_preview_p2" class="text-info fw-bold fs-5 mt-2"></span>
+                    </div>
+                </div>
+
+                <!-- Vida, ki y energía del jugador 2 -->
+                <div class="mt-3 battle-only">
+                    <!-- Vida -->
+                    <div class="text-start mb-2">
+                        <label class="form-label text-success fw-bold mb-1 small"><i class="fa-solid fa-heart me-1"></i>Vida</label>
+                        <div class="progress" style="height: 20px;">
+                            <div id="p2-vida" class="progress-bar bg-success fw-bold" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                        </div>
+                    </div>
+
+                    <!-- Ki -->
+                    <div class="text-start mb-2">
+                        <label class="form-label text-info fw-bold mb-1 small"><i class="fa-solid fa-bolt me-1"></i>Ki</label>
+                        <div class="progress" style="height: 20px;">
+                            <div id="p2-ki" class="progress-bar bg-info text-dark fw-bold" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                        </div>
+                    </div>
+
+                    <!-- Energía -->
+                    <div class="text-start mb-2">
+                        <label class="form-label text-warning fw-bold mb-1 small"><i class="fa-solid fa-fire me-1"></i>Energía</label>
+                        <div class="progress" style="height: 20px;">
+                            <div id="p2-energia" class="progress-bar bg-warning text-dark fw-bold" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acciones disponibles para el jugador 2 durante la pelea -->
+                <div class="battle-actions battle-only mt-3" role="group" aria-label="Acciones del jugador 2">
+                    <button type="button" id="p2-cargar" class="btn btn-outline-info" disabled><i class="fa-solid fa-bolt" aria-hidden="true"></i> Cargar ki</button>
+                    <button type="button" id="p2-especial" class="btn btn-outline-warning" disabled><i class="fa-solid fa-fire" aria-hidden="true"></i> Atk especial</button>
+                    <button type="button" id="p2-basico" class="btn btn-outline-danger" disabled><i class="fa-solid fa-hand-fist" aria-hidden="true"></i> Atk básico</button>
+                    <button type="button" id="p2-semilla" class="btn btn-outline-success" disabled><i class="fa-solid fa-seedling" aria-hidden="true"></i> Semilla (<span id="p2-semillas">2</span>)</button>
+                </div>
+
+                <!-- Mensaje que le indica al jugador qué está pasando -->
+                <p id="p2-estado" class="battle-status battle-only mt-2 small text-secondary" role="status" aria-live="polite">Elige tu personaje y pulsa Aceptar.</p>
+
+                <!-- Confirma al jugador 2 -->
+                <button id="btn_player2" type="button" class="btn btn-primary w-100 mt-4">Aceptar <i class="fa-solid fa-gamepad"></i></button>
+            </div>
+
+        </div>
+
+        <!-- Pantalla que presenta a los dos personajes antes de empezar -->
+        <section id="matchup-screen" class="matchup-screen d-none text-center py-4" aria-labelledby="matchup-title" tabindex="-1">
+            <h2 id="matchup-title" class="display-5 fw-bold mb-4">¡Estos son los combatientes!</h2>
+            <div class="row align-items-center justify-content-center">
+                <!-- Personaje del jugador 1 -->
+                <div class="col-5 col-md-4">
+                    <img id="matchup-img-p1" class="img-fluid matchup-character" src="" alt="">
+                    <h3 id="matchup-name-p1" class="text-danger fw-bold mt-3"></h3>
+                    <p id="matchup-player-p1" class="fs-5"></p>
+                    <p id="matchup-dialogue-p1" class="matchup-dialogue" aria-live="polite"></p>
+                </div>
+                <div class="col-2">
+                    <span class="matchup-versus">VS</span>
+                </div>
+                <!-- Personaje del jugador 2 -->
+                <div class="col-5 col-md-4">
+                    <img id="matchup-img-p2" class="img-fluid matchup-character" src="" alt="">
+                    <h3 id="matchup-name-p2" class="text-primary fw-bold mt-3"></h3>
+                    <p id="matchup-player-p2" class="fs-5"></p>
+                    <p id="matchup-dialogue-p2" class="matchup-dialogue" aria-live="polite"></p>
+                </div>
+            </div>
+            <!-- Da comienzo a la pelea -->
+            <button id="btn-start-battle" type="button" class="btn btn-danger btn-lg px-5 mt-4">START</button>
+        </section>
+    </div>
+
+    <div id="loading-screen" class="loading-screen d-none" role="status" aria-live="assertive" aria-hidden="true">
+        <div class="loading-card">
+            <div class="spinner-border text-danger mb-3" role="presentation"></div>
+            <h2 class="fw-bold">Preparando el combate</h2>
+            <p class="mb-0">Los guerreros se preparan para entrar a la arena...</p>
+        </div>
+    </div>
+
+    <!-- Ventana que muestra el ataque cuando un jugador golpea -->
+    <div id="attack-animation" class="attack-animation d-none" role="status" aria-live="assertive" aria-hidden="true">
+        <div class="attack-animation-card">
+            <img id="attack-animation-image" class="attack-animation-image" src="" alt="">
+            <h2 id="attack-animation-title" class="mt-3 fw-bold"></h2>
+            <p id="attack-animation-detail" class="mb-0 fs-5"></p>
+        </div>
+    </div>
+
+    <!-- Carga el código que hace funcionar el juego -->
+    <script src="./bundle.js?v=tres-pantallas-20261006"></script>
 </body>
 </html>

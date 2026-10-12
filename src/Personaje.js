@@ -1,51 +1,79 @@
-class Personaje{
+// Guarda los datos de cada jugador durante la partida.
+class Personaje {
+    // Datos iniciales de cada jugador.
     #vida = 100;
     #nombre;
+    #personaje;
     #ki = 100;
     #energia = 100;
     #semilla = 2;
 
-    constructor(nombre){
+    // Al crear al jugador, guarda su nombre y el personaje que eligió.
+    constructor(nombre, personaje = "") {
         this.#nombre = nombre;
+        this.#personaje = personaje;
+        
+        // Muestra los valores iniciales en la consola.
         this.mostrarEstadisticas();
     }
-    mostrarEstadisticas(){
+
+    // Imprime en la consola cómo van las barras y las semillas.
+    mostrarEstadisticas() {
         console.log(`
             nombre:${this.#nombre},
-            ************************
-            ki:${this.#ki},            
-            vida:${this.#vida},            
-            energia:${this.#energia},            
-            semilla:${this.#semilla},            
+            personaje:${this.#personaje},
+            *********************
+            ki:${this.#ki},
+            vida:${this.#vida},
+            energia:${this.#energia},
+            semilla:${this.#semilla},
         `);
     }
-    getVida(){
+
+    // Estos métodos permiten consultar los datos del jugador.
+
+    getVida() {
         return this.#vida;
     }
-    getKi(){
+
+    getKi() {
         return this.#ki;
     }
-    getEnergia(){
-        return this.#energia
+
+    getEnergia() {
+        return this.#energia;
     }
-    getSemilla(){
+
+    getSemilla() {
         return this.#semilla;
     }
-    getNombre(){
+
+    getNombre() {
         return this.#nombre;
     }
-    setVida(vida){
-        this.#vida = vida;
+
+    getPersonaje() {
+        return this.#personaje;
     }
-    setKi(ki){
-        this.#ki = ki;
+
+    // Estos métodos permiten actualizar sus datos.
+
+    setVida(vida) {
+        this.#vida = Math.min(100, Math.max(0, Number(vida) || 0));
     }
-    setEnergia(energia){
-        this.#energia = energia;
+
+    setKi(ki) {
+        this.#ki = Math.min(100, Math.max(0, Number(ki) || 0));
     }
-    setSemilla(semilla){
-        this.#semilla = semilla;
+
+    setEnergia(energia) {
+        this.#energia = Math.min(100, Math.max(0, Number(energia) || 0));
+    }
+
+    setSemilla(semilla) {
+        this.#semilla = Math.min(2, Math.max(0, Math.floor(Number(semilla) || 0)));
     }
 }
 
+// Deja esta clase disponible para usarla en Acciones.js.
 export default Personaje;

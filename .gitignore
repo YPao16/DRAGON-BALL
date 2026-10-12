@@ -1,2 +1,4 @@
+# Paquetes instalados; se pueden volver a instalar con npm.
 node_modules
+# Archivo con las versiones exactas de los paquetes.
 package-lock.json
