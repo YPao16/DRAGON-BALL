@@ -12,6 +12,8 @@ python -m http.server 8080 --directory dist
 
 Abre http://localhost:8080, escribe un nombre con letras y números, elige un personaje para cada jugador y pulsa **Aceptar**. Cuando ambos confirmen, aparecerá la pantalla del enfrentamiento con una animación y una frase de cada personaje. Pulsa **START** para ver la pantalla de carga y comenzar la batalla; el jugador 1 inicia.
 
+También puedes jugar en línea en [GitHub Pages](https://ypao16.github.io/DRAGON-BALL/). La página principal abre el juego desde `dist/`.
+
 ## Acciones
 
 - **Cargar ki:** recupera 10 de ki y 15 de energía, hasta 100.
